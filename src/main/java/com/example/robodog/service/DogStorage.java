@@ -2,11 +2,15 @@ package com.example.robodog.service;
 
 import com.example.robodog.model.Dog;
 import com.example.robodog.model.EBreed;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
+@Repository
 public class DogStorage {
     private final DogCreator dogCreator;
 
@@ -29,7 +33,9 @@ public class DogStorage {
     }
 
     public List<Dog> getDogList() {
-        return dogList;
+        return dogList.stream()
+                .sorted(Comparator.comparing(Dog::getName))
+                        .collect(Collectors.toList());
     }
 
     public Dog updateDogByName(String name, int age, EBreed ebreed) {

@@ -12,6 +12,7 @@ public class Dog {
         this.EBreed = EBreed;
     }
 
+
     public int getAge() {
         return age;
     }
