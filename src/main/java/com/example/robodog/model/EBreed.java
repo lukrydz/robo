@@ -1,7 +1,9 @@
 package com.example.robodog.model;
 
-public enum Breed {
+public enum EBreed {
+
     HOUND,
     GERMAN_SHEPHERD,
     TERRIER,
+
 }
