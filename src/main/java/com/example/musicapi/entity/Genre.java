@@ -1,4 +1,6 @@
 package com.example.musicapi.entity;
 
-public class Genre {
+public enum Genre {
+    DISCOPOLO,
+    ROCK
 }
