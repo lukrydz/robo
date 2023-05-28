@@ -3,6 +3,8 @@ package com.example.musicapi.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -15,8 +17,15 @@ public class Artist {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NonNull
+    @Column(nullable = false)
     private String name;
     private String country;
+
+    @OneToMany(mappedBy = "artist")
+    private Set<Song> allSongs;
+
+    @OneToMany(mappedBy = "artist")
+    private Set<Album> allAlbums;
+
 
 }

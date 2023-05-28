@@ -22,6 +22,8 @@ public class Playlist {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+    @ManyToMany(mappedBy = "setOfPlaylist")
     private Set<Song> setOfSongs = new HashSet<>();
+
 
 }
