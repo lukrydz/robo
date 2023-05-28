@@ -1,6 +1,6 @@
-package com.example.musicapi.entity;
+package com.example.musicapi.model;
 
-import jakarta.persistence.*;
+import com.example.musicapi.entity.Song;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,13 +13,9 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity
-@Table(name = "playlist")
 
-public class Playlist {
+public class PlaylistDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private Set<Song> setOfSongs = new HashSet<>();
