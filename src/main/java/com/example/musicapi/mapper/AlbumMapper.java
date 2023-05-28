@@ -4,9 +4,11 @@ import com.example.musicapi.entity.Album;
 import com.example.musicapi.model.AlbumDto;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 @Mapper(componentModel = "spring")
 public interface AlbumMapper {
 
@@ -18,6 +20,9 @@ public interface AlbumMapper {
     List<AlbumDto> mapToAlbumDtoList(List<Album> albums);
 
     @InheritInverseConfiguration
-    List<Album> mapToAlbumList(List<AlbumDto> albumDtos);
+    List<Album> mapToAlbum(List<AlbumDto> albumDtos);
+
+
+
 
 }

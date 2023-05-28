@@ -1,14 +1,13 @@
 package com.example.musicapi.repository;
 
-import com.example.musicapi.entity.Album;
+import com.example.musicapi.entity.Artist;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface AlbumRepository extends CrudRepository<Album, Long> {
+public interface ArtistRepository extends CrudRepository<Artist, Long> {
 
-    List<Album> findAll();
-
+    List<Artist> findAll();
 }

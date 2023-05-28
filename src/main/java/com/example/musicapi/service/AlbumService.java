@@ -23,8 +23,8 @@ public class AlbumService {
 
     }
 
-    public void deleteAlbum(Album album) {
-        repository.deleteById(album.getId());
+    public void deleteAlbum(Long id) {
+        repository.deleteById(id);
     }
         //shift + ctrl + f
         // 2x shift     <- intellij search
@@ -32,7 +32,7 @@ public class AlbumService {
 
         Optional<Album> albumOptional = repository.findById(id);
         albumOptional.ifPresentOrElse(album -> {
-            album.setTitle(album.getTitle());
+            album.setTitle(albumDto.getTitle());
             album.setReleaseData(albumDto.getReleaseData());
             repository.save(album);
         }, () -> {
