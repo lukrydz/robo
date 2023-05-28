@@ -1,55 +1,53 @@
 package com.example.musicapi.service;
 
 import com.example.musicapi.entity.Album;
+import com.example.musicapi.mapper.AlbumMapper;
 import com.example.musicapi.model.AlbumDto;
 import com.example.musicapi.repository.AlbumRepository;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class AlbumService {
+    private final AlbumMapper albumMapper;
     private final AlbumRepository repository;
 
-    public AlbumService(AlbumRepository repository) {
-        this.repository = repository;
-    }
+    public AlbumDto createAlbum(AlbumDto albumDto) {
+        Album album = repository.save(albumMapper.mapToAlbum(albumDto));
+        return albumMapper.mapToAlbumDto(album);
 
-    public Album createAlbum(AlbumDto albumDto) {
-        return new Album(
-                albumDto.getId(),
-                albumDto.getTitle(),
-                albumDto.getReleaseData());
-    }
-
-    public void saveAlbum(AlbumDto albumDto) {
-        Album album = createAlbum(albumDto);
-        repository.save(album);
     }
 
     public void deleteAlbum(Album album) {
         repository.deleteById(album.getId());
     }
+        //shift + ctrl + f
+        // 2x shift     <- intellij search
+    public void updateAlbum(Long id, AlbumDto albumDto) {
 
-    public void updateAlbum(AlbumDto albumDto) {
-        Album album = repository.findById(
-                albumDto.getId())
-                .orElseThrow(() -> new RuntimeException("Album does not exist"));
-        album.setTitle(album.getTitle());
-        album.setReleaseData(albumDto.getReleaseData());
-        repository.save(album);
+        Optional<Album> albumOptional = repository.findById(id);
+        albumOptional.ifPresentOrElse(album -> {
+            album.setTitle(album.getTitle());
+            album.setReleaseData(albumDto.getReleaseData());
+            repository.save(album);
+        }, () -> {
+            throw new EntityNotFoundException("Entity id: " + id + " not found");
+        });
     }
 
-    public List<Album> getAllAlbums() {
-        return repository.findAll();
+    public List<AlbumDto> getAllAlbums() {
+        return albumMapper.mapToAlbumDtoList(repository.findAll());
     }
 
     public AlbumDto getAlbumById(Long id) {
         Album album = repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Album does not exist"));
-        return new AlbumDto(album.getId(),
-                album.getTitle(),
-                album.getReleaseData());
+        return albumMapper.mapToAlbumDto(album);
     }
 
 
